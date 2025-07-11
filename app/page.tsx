@@ -134,7 +134,7 @@ export default function LoginPage() {
               setTimeout(() => setIsLoading(false), 300)
             }}
             onError={() => setIsLoading(false)}
-            className="w-full h-full object-contain opacity-50 pointer-events-none"
+            className="w-full h-full object-cover opacity-50 pointer-events-none"
           />
           <div className="absolute inset-0 bg-light-blue/50 pointer-events-none" />
         </div>
