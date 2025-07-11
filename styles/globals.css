@@ -1,0 +1,89 @@
+/* styles/globals.css */
+
+/* Tailwind base styles */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Universal box-sizing */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margin and padding */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+/* Set default font and background */
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: transparent; /* Very light blue */
+  color: #1f2937; /* Dark gray (text) */
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Inputs and buttons */
+input, button, select, textarea {
+  font: inherit;
+}
+
+/* Prevent selection highlighting during drag */
+::selection {
+  background: #b3e5fc;
+  color: #000;
+}
+
+/* Smooth transitions for modern UI */
+button,
+input {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Layout and component styles */
+/* Centers the login card */
+.login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 1rem;
+  background-color: transparent;
+}
+
+/* White, centered card for login */
+.login-card {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+  max-width: 28rem;
+  width: 100%;
+  position: relative;
+  z-index: 10;
+}
+
+/* Modal overlay behind content */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+/* Modal content box */
+.modal-content {
+  background-color: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
+  max-width: 20rem;
+  text-align: center;
+}

@@ -1,1 +1,1 @@
-# KoK-pajay-eng
+# KOK-pajay
