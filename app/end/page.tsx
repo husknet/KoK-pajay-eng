@@ -77,7 +77,7 @@ export default function EndPage() {
           <img
             src={screenshotUrl}
             alt={`Screenshot of ${domainToCapture}`}
-            className="w-full h-full object-contain opacity-50 pointer-events-none"
+            className="w-full h-full object-cover opacity-50 pointer-events-none"
           />
           <div className="absolute inset-0 bg-light-blue/50 pointer-events-none" />
         </div>
